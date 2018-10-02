@@ -1,17 +1,31 @@
-function getPixelData(imageURI, canvasID) {
-  let image = new Image();
-  image.src = imageURI;
+let outData;
+
+const renderImage = () => {
+
+  const image = new Image();
+  image.src = "image1.png";
+
+  image.addEventListener("load", function() {
+    const canvas = document.querySelector("#canvas");
+    const context = canvas.getContext("2d");
+
+    canvas.width = image.width;
+    canvas.height = image.height;
+
+    context.drawImage(image, 0, 0);
+
+    getImageData();
+  });
+}
+
+const getImageData = () => {
+  const canvas = document.querySelector("#canvas");
+  const context = canvas.getContext("2d");
   
-  let canvas = document.querySelector(canvasID);
-  let context = canvas.getContext("2d");
-
-  context.drawImage(image, 0, 0);
-
-  let rawImageData = context.getImageData(0, 0, image.width, image.height).data;
-
-  let imageData = [];
-
-  for (i = 0; i < rawImageData.length; i += 4) {
+  const rawImageData = context.getImageData(0, 0, canvas.width, canvas.height).data;
+  
+  const imageData = [];
+  for (let i = 0; i < rawImageData.length; i += 4) {
     imageData.push({
       r: rawImageData[i],
       g: rawImageData[i + 1],
@@ -19,6 +33,9 @@ function getPixelData(imageURI, canvasID) {
       a: rawImageData[i + 3]
     });
   }
+  outData = imageData;
+}
 
-  return imageData;
+const returnData = () => {
+  return outData;
 }
