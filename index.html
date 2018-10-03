@@ -1,16 +1,32 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title></title>
+<head>
+    <meta charset=utf-8 />
+    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+    <script class="jsbin" src="picloader.js"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="imagehandler.js"></script>
     <script src="chart.js"></script>
     <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div id="page-wrapper">
-      <canvas id="canvas"></canvas>
-      <div id="chart-wrapper"></div>
-    </div>
-  </body>
+
+    <title>projekt1 testgrounds</title>
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+<div id="selector-container">
+    <input id="localFile" type='file' onchange="readURL(this);" /><br>
+    <p style="color: aliceblue">or type in an image URL</p></pstyle><br>
+    <input id="webFile" type='text'/><br>
+    <button onclick="readWebURL(this);">Load image</button><br>
+    <img id="picLoader" src="#" alt="your image" /><br>
+</div>
+
+<div id="page-wrapper">
+    <canvas id="canvas"></canvas>
+    <div id="chart-wrapper"></div>
+</body>
 </html>
