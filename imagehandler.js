@@ -3,7 +3,7 @@ let outData;
 const renderImage = () => {
 
   const image = new Image();
-  image.src = "image1.png";
+  image.src = "image3.png";
 
   image.addEventListener("load", function() {
     const canvas = document.querySelector("#canvas");
@@ -16,7 +16,8 @@ const renderImage = () => {
 
     getImageData();
   });
-}
+};
+
 
 const getImageData = () => {
   const canvas = document.querySelector("#canvas");
@@ -34,8 +35,8 @@ const getImageData = () => {
     });
   }
   outData = imageData;
-}
+};
 
 const returnData = () => {
   return outData;
-}
+};

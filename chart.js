@@ -8,7 +8,8 @@ renderImage();
 const initChart = () => {
   
   imageData = returnData();
-
+  console.log("initChart()");
+  console.log(imageData);
   for (let i = 0; i < 256; i++) {
     
     let count = { r: 0, g: 0, b: 0};
@@ -24,7 +25,7 @@ const initChart = () => {
       b: count.b
     });
   }
-
+  console.log('data output from renderImage()');
   console.log(data);
 
   const chartContainer = d3.select("#chart-wrapper");
@@ -32,7 +33,7 @@ const initChart = () => {
   const margin = { top: 0, right: 0, bottom: 0, left: 0},
     aspect = 4, 
     fullWidth = parseFloat(chartContainer.style("width")),
-    fullHeight = parseFloat(chartContainer.style("height"))
+    fullHeight = parseFloat(chartContainer.style("height")),
     width = fullWidth - margin.right - margin.left,
     height = fullHeight - margin.top - margin.bottom;
 
@@ -59,7 +60,7 @@ const initChart = () => {
     r: areaGenerator(data.map(d => { return d.r; })),
     g: areaGenerator(data.map(d => { return d.g; })),
     b: areaGenerator(data.map(d => { return d.b; }))
-  }
+  };
 
   const chartPaths = { 
     r: chart.append("path")
@@ -74,10 +75,10 @@ const initChart = () => {
     .classed("chart-path", true)
     .attr("id", "chart-path-b")
     .attr("d", pathsData.b)
-  }
-}
+  };
+};
 
 // Init chart on page load
 window.onload = () => {
   initChart();
-}
+};

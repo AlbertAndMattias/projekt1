@@ -48,3 +48,11 @@ body {
   fill: #00F;
   opacity: .5;
 }
+
+#selector-container{
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: column;
+}
