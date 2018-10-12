@@ -17,15 +17,9 @@
 
 </head>
 <body>
-<div id="selector-container">
-    <input id="localFile" type='file' onchange="readURL(this);" /><br>
-    <p style="color: aliceblue">or type in an image URL</p></pstyle><br>
-    <input id="webFile" type='text'/>
-    <button onclick="readWebURL(this);">Load image</button><br>
-    <img hidden id="picLoader" src="#" alt="your image" /><br>
-</div>
-
 <div id="page-wrapper">
+    <input id="localFile" type='file' onchange="readURL(this);" /><br>
+    <img hidden id="picLoader" src="#" alt="your image" /><br>
     <button onclick="putInCanvas();">Places image in canvas</button><br>
     <button onclick="analyzePic()">Analyze Data</button>
     <canvas id="canvas"></canvas>

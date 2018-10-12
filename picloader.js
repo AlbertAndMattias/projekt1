@@ -88,7 +88,9 @@ function analyzePic(){
         width = fullWidth - margin.right - margin.left,
         height = fullHeight - margin.top - margin.bottom;
 
-    const chart = chartContainer.append("svg")
+    //chartContainer.selectAll("*").remove();
+
+    const chart = chartContainer.transition("svg")
         .attr("id", "chart")
         .attr("width", fullWidth)
         .attr("height", fullHeight);
