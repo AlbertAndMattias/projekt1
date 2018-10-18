@@ -1,29 +1,43 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset=utf-8 />
-    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+  <head>
+    <title>Projekt 1 - Colour histogram</title>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script class="jsbin" src="picloader.js"></script>
-    <script src="imagehandler.js"></script>
-    <script src="chart.js"></script>
-    <link rel="stylesheet" href="style.css" />
 
-    <title>projekt1 testgrounds</title>
-    <!--[if IE]>
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <script src="js/imagehandler.js"></script>
+    <script src="js/chart.js"></script>
 
-</head>
-<body>
-<div id="page-wrapper">
-    <input id="localFile" type='file' onchange="readURL(this);" /><br>
-    <img hidden id="picLoader" src="#" alt="your image" /><br>
-    <button onclick="putInCanvas();">Places image in canvas</button><br>
-    <button onclick="analyzePic()">Analyze Data</button>
-    <canvas id="canvas"></canvas>
-    <div id="chart-wrapper"></div>
-</div>
-</body>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <div id="page-wrapper">
+      <div id="form-wrapper">
+        <input id="image-upload" type="file" accept="image/*">
+        <label for="image-upload">Upload image</label>
+        <fieldset id="chart-controls">
+          <span>Show:</span>
+
+          <input id="radio-a" type="radio" name="radio" checked>
+          <label for="radio-a">All</label>
+
+          <input id="radio-r" type="radio" name="radio">
+          <label for="radio-r">Red</label>
+
+          <input id="radio-g" type="radio" name="radio">
+          <label for="radio-g">Green</label>
+
+          <input id="radio-b" type="radio" name="radio">
+          <label for="radio-b">Blue</label>
+
+          <input id="radio-l" type="radio" name="radio">
+          <label for="radio-l">Greyscale</label>
+
+        </fieldset>
+      </div>
+      <div id="chart-wrapper"></div>
+      <canvas id="image-canvas"></canvas>
+    </div>
+  </body>
 </html>
