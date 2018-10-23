@@ -2,9 +2,21 @@ let data = [],
   chartWrapper,
   chartCanvas,
   chartPaths,
+  chartPathsData,
+  areaGenerator,
+  xScale, yScale,
   width, height;
 
 function initChart() {
+
+  for (i = 0; i < 256; i++) {
+    data.push({
+      r: 0,
+      g: 0,
+      b: 0,
+      l: 0
+    });
+  }
 
   chartWrapper = d3.select("#chart-wrapper");
 
@@ -23,20 +35,45 @@ function initChart() {
     .append("g")
       .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-  chartCanvas.select("#chart-canvas").select("g");
+  xScale = d3.scaleLinear()
+    .domain([0, data.length])
+    .range([0, width]);
+
+  yScale = d3.scaleLinear()
+    .domain([0, 1])
+    .range([height, 0]);
+
+  areaGenerator = d3.area()
+    .x((d, i) => { return xScale(i); })
+    .y0(height)
+    .y1(d => { return yScale(d); })
+    .curve(d3.curveStep);
+
+  chartPathsData = {
+    r: areaGenerator(data.map(d => { return d.r; })),
+    g: areaGenerator(data.map(d => { return d.g; })),
+    b: areaGenerator(data.map(d => { return d.b; })),
+    l: areaGenerator(data.map(d => { return d.l; }))
+  };
+
+  chartCanvas = d3.select("#chart-canvas").select("g");
 
   chartCanvas.append("path")
     .classed("chart-path", true)
-    .attr("id", "chart-path-r");
+    .attr("id", "chart-path-r")
+    .attr("d", chartPathsData.r);
   chartCanvas.append("path")
     .classed("chart-path", true)
-    .attr("id", "chart-path-g");
+    .attr("id", "chart-path-g")
+    .attr("d", chartPathsData.g);
   chartCanvas.append("path")
     .classed("chart-path", true)
-    .attr("id", "chart-path-b");
+    .attr("id", "chart-path-b")
+    .attr("d", chartPathsData.b);
   chartCanvas.append("path")
     .classed("chart-path", true)
-    .attr("id", "chart-path-l");
+    .attr("id", "chart-path-l")
+    .attr("d", chartPathsData.l);
 
   chartPaths = {
     r: chartCanvas.select("#chart-path-r"),
@@ -48,13 +85,14 @@ function initChart() {
 
 function updateChart() {
 
-  data = [];
+  data = getPixelCounts();
+  console.log(data);
 
-  let xScale = d3.scaleLinear()
+  xScale = d3.scaleLinear()
     .domain([0, data.length])
     .range([0, width]);
 
-  let yScale = d3.scaleLinear()
+  yScale = d3.scaleLinear()
     .domain([0, d3.max(
       data.map(d => { return d.r; }).concat(
         data.map(d => { return d.g; }).concat(
@@ -62,13 +100,13 @@ function updateChart() {
             data.map(d => { return d.l; })))))])
     .range([height, 0]);
 
-  let areaGenerator = d3.area()
-    .x(d => { return xScale(d.x); })
+  areaGenerator = d3.area()
+    .x((d, i) => { return xScale(i); })
     .y0(height)
     .y1(d => { return yScale(d); })
     .curve(d3.curveStep);
 
-  let chartPathsData = {
+  chartPathsData = {
     r: areaGenerator(data.map(d => { return d.r; })),
     g: areaGenerator(data.map(d => { return d.g; })),
     b: areaGenerator(data.map(d => { return d.b; })),
@@ -77,7 +115,7 @@ function updateChart() {
 
   for (path in chartPaths) {
     chartPaths[path].transition()
-      .duration(200)
+      .duration(Math.floor(Math.random() * 200 + 200))
       .attr("d", chartPathsData[path]);
   }
 }
