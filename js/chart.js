@@ -3,6 +3,8 @@ $(document).ready(() => {
   let data = [];
   let imageData = [];
 
+  let chartPaths;
+
   renderImage();
 
   // Chart init function
@@ -64,24 +66,29 @@ $(document).ready(() => {
       b: areaGenerator(data.map(d => { return d.b; })),
       l: areaGenerator(data.map(d => { return d.l; }))
     };
+    
+    chartCanvas.append("path")
+      .classed("chart-path", true)
+      .attr("id", "chart-path-r")
+      .attr("d", pathsData.r);
+    chartCanvas.append("path")
+      .classed("chart-path", true)
+      .attr("id", "chart-path-g")
+      .attr("d", pathsData.g);
+    chartCanvas.append("path")
+      .classed("chart-path", true)
+      .attr("id", "chart-path-b")
+      .attr("d", pathsData.b);
+    chartCanvas.append("path")
+      .classed("chart-path", true)
+      .attr("id", "chart-path-l")
+      .attr("d", pathsData.l);
 
-    const chartPaths = { 
-      r: chartCanvas.append("path")
-          .classed("chart-path", true)
-          .attr("id", "chart-path-r")
-          .attr("d", pathsData.r),
-      g: chartCanvas.append("path")
-          .classed("chart-path", true)
-          .attr("id", "chart-path-g")
-          .attr("d", pathsData.g),
-      b: chartCanvas.append("path")
-          .classed("chart-path", true)
-          .attr("id", "chart-path-b")
-          .attr("d", pathsData.b),
-      l: chartCanvas.append("path")
-          .classed("chart-path", true)
-          .attr("id", "chart-path-l")
-          .attr("d", pathsData.l)
+    chartPaths = {
+      r: chartCanvas.select("#chart-path-r"),
+      g: chartCanvas.select("#chart-path-g"),
+      b: chartCanvas.select("#chart-path-b"),
+      l: chartCanvas.select("#chart-path-l")
     };
   };
 
@@ -91,93 +98,35 @@ $(document).ready(() => {
   });
 
   $("input[type=radio][name=path-select]").change(function() {
-    
-    let duration = 200, 
+    let duration = 200,
       fillOn = .8,
       fillOff = .2,
-      strokeOn = 1,
-      strokeOff = .4,
-      fillOnAll = .6,
-      strokeOnAll = .8;
+      fillOnAll = .5;
 
-    if ($("#radio-a").prop("checked")) {
-      d3.select("#chart-path-r").transition()
-        .duration(duration)
-        .style("fill-opacity", fillOnAll)
-        .style("stroke-opacity", strokeOnAll);
-      d3.select("#chart-path-g").transition()
-        .duration(duration)
-        .style("fill-opacity", fillOnAll)
-        .style("stroke-opacity", strokeOnAll);
-      d3.select("#chart-path-b").transition()
-        .duration(duration)
-        .style("fill-opacity", fillOnAll)
-        .style("stroke-opacity", strokeOnAll);
-      d3.select("#chart-path-l").transition()
-        .duration(duration)
-        .style("fill-opacity", fillOnAll)
-        .style("stroke-opacity", strokeOnAll);   
-    } else {
-      d3.select("#chart-path-r").transition()
-        .duration(duration)
-        .style("fill-opacity", fillOff)
-        .style("stroke-opacity", strokeOff);
-      d3.select("#chart-path-g").transition()
-        .duration(duration)
-        .style("fill-opacity", fillOff)
-        .style("stroke-opacity", strokeOff);
-      d3.select("#chart-path-b").transition()
-        .duration(duration)
-        .style("fill-opacity", fillOff)
-        .style("stroke-opacity", strokeOff);
-      d3.select("#chart-path-l").transition()
-        .duration(duration)
-        .style("fill-opacity", fillOff)
-        .style("stroke-opacity", strokeOff);
-    }
-    if ($("#radio-r").prop("checked")) {
-      d3.select("#chart-path-r").transition()
-        .duration(duration)
-        .style("fill-opacity", fillOn)
-        .style("stroke-opacity", strokeOn);  
-    } else { 
-      d3.select("#chart-path-r").transition()
-      .duration(duration)
-      .style("fill-opacity", fillOff)
-      .style("stroke-opacity", strokeOff);
-    }
-    if ($("#radio-g").prop("checked")) {
-      d3.select("#chart-path-g").transition()
-        .duration(duration)
-        .style("fill-opacity", fillOn)
-        .style("stroke-opacity", strokeOn);  
-    } else { 
-      d3.select("#chart-path-g").transition()
-      .duration(duration)
-      .style("fill-opacity", fillOff)
-      .style("stroke-opacity", strokeOff);
-    }
-    if ($("#radio-b").prop("checked")) {
-      d3.select("#chart-path-b").transition()
-        .duration(duration)
-        .style("fill-opacity", fillOn)
-        .style("stroke-opacity", strokeOn);  
-    } else { 
-      d3.select("#chart-path-b").transition()
-      .duration(duration)
-      .style("fill-opacity", fillOff)
-      .style("stroke-opacity", strokeOff);
-    }
-    if ($("#radio-l").prop("checked")) {
-      d3.select("#chart-path-l").transition()
-        .duration(duration)
-        .style("fill-opacity", fillOn)
-        .style("stroke-opacity", strokeOn);  
-    } else { 
-      d3.select("#chart-path-l").transition()
-      .duration(duration)
-      .style("fill-opacity", fillOff)
-      .style("stroke-opacity", strokeOff);
+    switch (this.value) {
+      case "a":
+        for (path in chartPaths) {
+          chartPaths[path].transition()
+            .duration(duration)
+            .style("fill-opacity", fillOnAll);
+        }
+        break;
+      default:
+        for (path in chartPaths) {
+          switch (this.value) {
+            case path:
+              chartPaths[path].transition()
+                .duration(duration)
+                .style("fill-opacity", fillOn);
+              break;
+            default:
+              chartPaths[path].transition()
+                .duration(duration)
+                .style("fill-opacity", fillOff);
+              break;
+          }
+        }
+        break;
     }
   });
 });

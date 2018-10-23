@@ -91,6 +91,7 @@ body {
 #chart-wrapper {
   margin-bottom: 16px;
   display: flex;
+  background-color: #2a2a2a;
   border-radius: 2px;
 }
 
@@ -101,27 +102,21 @@ body {
 }
 
 .chart-path {
-  stroke-width: 2px;
-  stroke-opacity: .8;
-  fill-opacity: .4;
+  fill-opacity: .5;
 }
 
 #chart-path-r {
-  stroke: #F44;
   fill: #F44;
 }
 
 #chart-path-g {
-  stroke: #4F4;
   fill: #4F4;
 }
 
 #chart-path-b {
-  stroke: #44F;
   fill: #44F;
 }
 
 #chart-path-l {
-  stroke: #CCC;
-  fill: #CCC;
+  fill: #DDD;
 }
