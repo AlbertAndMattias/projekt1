@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Projekt 1 - Colour histogram</title>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <script src="js/maestro.js"></script>
+    <script src="js/imagehandler.js"></script>
+    <script src="js/chart.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <div id="page-wrapper">
+      <div id="form-wrapper">
+        <input id="image-upload" type="file" accept="image/*">
+        <label for="image-upload">Upload image</label>
+        <fieldset id="chart-controls">
+          <span>Focus:</span>
+
+          <input id="radio-a" type="radio" name="path-select" value="a" checked>
+          <label for="radio-a">All</label>
+
+          <input id="radio-r" type="radio" name="path-select" value="r">
+          <label for="radio-r">Red</label>
+
+          <input id="radio-g" type="radio" name="path-select" value="g">
+          <label for="radio-g">Green</label>
+
+          <input id="radio-b" type="radio" name="path-select" value="b">
+          <label for="radio-b">Blue</label>
+
+          <input id="radio-l" type="radio" name="path-select" value="l">
+          <label for="radio-l">Greyscale</label>
+
+        </fieldset>
+      </div>
+      <div id="chart-wrapper"></div>
+      <canvas id="image-canvas"></canvas>
+    </div>
+  </body>
+</html>
