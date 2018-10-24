@@ -37,7 +37,7 @@ $(document).ready(() => {
     getImage();
     setTimeout(() => {
       updateChart();
-    }, 500);
+    }, 100);
   })
 
   getImage();
